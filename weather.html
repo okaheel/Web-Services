@@ -183,6 +183,42 @@
         document.getElementById('summary_today').innerText = data.current.weather_descriptions
         createCards()
 
+        function createCards() {
+          for (let index = 0; index < 5; index++) {
+            var forecastData = getKey(index)
+            createCard(dayOfWeek, forecastData.maxtemp, forecastData.mintemp, forecastData.astro.sunrise, forecastData.astro.sunset)
+          }
+        }
+
+        function createCard(dayOfWeek, high, low, sunrise, sunset) {
+          var forecastMasterDiv = document.getElementById("5_day_forecast")
+          var cardMasterDiv = document.createElement("div")
+          cardMasterDiv.style.width = "20%"
+          var cardDiv = document.createElement("div")
+          cardDiv.className = "card"
+          var cardBody = document.createElement("div")
+          cardBody.className = "card-body"
+          var cardTitle = document.createElement("h5")
+          cardTitle.innerText = dayOfWeek
+          
+
+          var cardText = document.createElement("p")
+          cardText.className = "card-text"
+          cardText.innerText =
+            `
+            High: ${high}
+            Low: ${low}
+            Sunrise: ${sunrise}
+            Sunset: ${sunset}
+            `
+
+          forecastMasterDiv.appendChild(cardMasterDiv)
+          cardMasterDiv.appendChild(cardDiv)
+          cardDiv.appendChild(cardBody)
+          cardBody.appendChild(cardTitle)
+          cardBody.appendChild(cardText)
+
+        }
         /* Process the daily forecast for the next 5 days */
         //helper function - to be used to get the key for each of the 5 days in the future when creating cards for forecasting weather
         function getKey(i) {
